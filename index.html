@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-controller="controller">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AngularJs - Lista de Atividades</title>
+  <script src="js/angular.min.js" type="text/javascript"></script>
+  <script src="js/app.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+
+    <h1>Lista de Atividades</h1>
+    <p>Existem {{tasks.length}} atividades.</p>
+    <hr>
+    <input type="text" ng-model="novoitem">
+    <a href="#" ng-click="add()" class="btn">Adicionar</a>
+    <br>
+    <input type="text" placeholder="Buscar atividade..."
+      ng-model="textobusca">
+    <br>
+    <div class="task"
+      ng-repeat="task in tasks | filter: textobusca">
+      <h3>{{task.title}}</h3>
+      <p>Criada em: {{task.created_at.toLocaleString()}}</p>
+    </div>
+
+  </div>
+</body>
+</html>
