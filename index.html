@@ -19,44 +19,51 @@
       <h1>Novo contato</h1>
     </div>
     <div class="row">
-      <strong>{{error}}</strong>
-      <ul>
-        <li ng-if="!formAgenda.first_name.$valid">Nome invalido</li>
-        <li ng-if="!formAgenda.last_name.$valid">Sobrenome invalido</li>
-        <li ng-if="!formAgenda.email.$valid">Email invalido</li>
-      </ul>
-    </div>
-    <div class="row">
-    <form name="formAgenda" class="col s12" ng-submit="add(formAgenda.$valid)">
-      <div class="row">
-        <div class="input-field col s6">
-          <input ng-model="name" placeholder="Primeiro nome" name="first_name" id="first_name" type="text" class="validate" required>
-          <label for="first_name">Nome</label>
+
+      <form name="formAgenda" class="col s12"
+      ng-submit="add(formAgenda.$valid)">
+
+        <div class="row">
+          <div class="input-field col s6">
+            <input ng-model="name" placeholder="Primeiro nome" name="first_name" id="first_name" type="text" class="validate" required>
+            <label for="first_name">Nome</label>
+          </div>
+          <div class="input-field col s6">
+            <input ng-model="last_name" placeholder="Sobrenome" name="last_name" id="last_name" type="text" class="validate" required>
+            <label for="last_name">Sobrenome</label>
+          </div>
         </div>
-        <div class="input-field col s6">
-          <input ng-model="last_name" placeholder="Sobrenome" name="last_name" id="last_name" type="text" class="validate" required>
-          <label for="last_name">Sobrenome</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <input ng-model="email" placeholder="Email" name="email" id="email" type="email" class="validate" required>
+            <label for="email">Email</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input ng-model="email" placeholder="Email" name="email" id="email" type="email" class="validate" required>
-          <label for="email">Email</label>
+        <div class="row">
+          <!-- <strong>{{error}}</strong> -->
+          <ul>
+            <li ng-if="!formAgenda.first_name.$valid">Nome invalido</li>
+            <li ng-if="!formAgenda.last_name.$valid">Sobrenome invalido</li>
+            <li ng-if="!formAgenda.email.$valid">Email invalido</li>
+          </ul>
         </div>
-      </div>
-      <input type="submit" class="waves-effect waves-light btn" value="Salvar"></a>
-    </form>
+        <input type="submit" class="waves-effect waves-light btn" value="Salvar">
+      </form>
 
   </div>
-
+  <div ng-if="contacts.length">
     <h2>Meus contatos</h2>
+    <input type="search" placeholder="Pesquisar contato..."
+    ng-model="searchtext">
     <div class="collection">
-        <a ng-repeat="contact in contacts" href="mailto:{{contact.email}}" class="collection-item">
+        <a ng-repeat="contact in contacts | filter: searchtext" href="mailto:{{contact.email}}" class="collection-item">
           <span class="title">{{contact.name}}</span>
           <p>{{contact.last_name}}<br>
           {{contact.email}}
           </p>
         </a>
+      </div>
+    </div>
   </div>
 </body>
 </html>
