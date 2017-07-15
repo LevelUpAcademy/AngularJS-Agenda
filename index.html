@@ -1,32 +1,62 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app" ng-controller="controller">
+<html lang="en" ng-app="agenda" ng-controller="main">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>AngularJs - Lista de Atividades</title>
+  <title>Agenda de contatos</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.min.js" type="text/javascript"></script>
   <script src="js/angular.min.js" type="text/javascript"></script>
   <script src="js/app.js" type="text/javascript"></script>
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/materialize.min.css">
+  <link rel="stylesheet" href="css/ghpages-materialize.css">
 </head>
 <body>
+
   <div class="container">
-
-    <h1>Lista de Atividades</h1>
-    <p>Existem {{tasks.length}} atividades.</p>
-    <hr>
-    <input type="text" ng-model="novoitem">
-    <a href="#" ng-click="add()" class="btn">Adicionar</a>
-    <br>
-    <input type="text" placeholder="Buscar atividade..."
-      ng-model="textobusca">
-    <br>
-    <div class="task"
-      ng-repeat="task in tasks | filter: textobusca">
-      <h3>{{task.title}}</h3>
-      <p>Criada em: {{task.created_at.toLocaleString()}}</p>
+    <div class="row">
+      <h1>Novo contato</h1>
     </div>
+    <div class="row">
+      <strong>{{error}}</strong>
+      <ul>
+        <li ng-if="!formAgenda.first_name.$valid">Nome invalido</li>
+        <li ng-if="!formAgenda.last_name.$valid">Sobrenome invalido</li>
+        <li ng-if="!formAgenda.email.$valid">Email invalido</li>
+      </ul>
+    </div>
+    <div class="row">
+    <form name="formAgenda" class="col s12" ng-submit="add(formAgenda.$valid)">
+      <div class="row">
+        <div class="input-field col s6">
+          <input ng-model="name" placeholder="Primeiro nome" name="first_name" id="first_name" type="text" class="validate" required>
+          <label for="first_name">Nome</label>
+        </div>
+        <div class="input-field col s6">
+          <input ng-model="last_name" placeholder="Sobrenome" name="last_name" id="last_name" type="text" class="validate" required>
+          <label for="last_name">Sobrenome</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input ng-model="email" placeholder="Email" name="email" id="email" type="email" class="validate" required>
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <input type="submit" class="waves-effect waves-light btn" value="Salvar"></a>
+    </form>
 
+  </div>
+
+    <h2>Meus contatos</h2>
+    <div class="collection">
+        <a ng-repeat="contact in contacts" href="mailto:{{contact.email}}" class="collection-item">
+          <span class="title">{{contact.name}}</span>
+          <p>{{contact.last_name}}<br>
+          {{contact.email}}
+          </p>
+        </a>
   </div>
 </body>
 </html>

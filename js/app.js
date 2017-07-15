@@ -1,20 +1,30 @@
-//cria um modulo novo chamado app
-var app = angular.module('app', [])
+//cria um modulo novo chamado agenda
+var app = angular.module('agenda', [])
 
 //cria um controller novo para esse modulo
-app.controller('controller', function($scope){
+app.controller('main', function($scope){
   //cria uma variavel de escopo, no nosso caso, um array vazio
-  $scope.tasks = []
+  $scope.contacts = []
   //cria um metodo de escopo
-  $scope.add = function(){
+  $scope.add = function(valid){
+    debugger;
     //cria um objeto
-    var task = {
-      title: $scope.novoitem,
-      created_at: new Date()
+    if (valid) {
+      var contact = {
+        name: $scope.name,
+        last_name: $scope.last_name,
+        email: $scope.email
+      }
+
+      console.log(contact)
+      //adiciona no array do escopo
+      $scope.contacts.push(contact)
+      $scope.name = ""
+      $scope.last_name = ""
+      $scope.email = ""
     }
-    //adiciona no array do escopo
-    $scope.tasks.push(task)
-    //zera a model novoitem
-    $scope.novoitem = ""
+    else{
+      $scope.error = "Formulario invalido, preencha os campos"
+    }
   }
 })
